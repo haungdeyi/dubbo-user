@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://code.alibabatech.com/schema/dubbo
+                           http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--提供服务的项目在整个分布式项目里面的唯一名称（必须指定）-->
+    <dubbo:application name="order" owner="NO"/>
+
+    <!--指定全局远程调用时使用的通信协议和端口(默认是dubbo)-->
+    <!--<dubbo:protocol name="dubbo"/>-->
+
+    <!--dubbo所提供的服务对应的注册中心-->
+    <!--<dubbo:registry address="N/A"/>-->
+    <dubbo:registry address="zookeeper://192.168.43.66:2181?backup=192.168.43.88:2181,192.168.43.99:2181"/>
+
+    <!--生成一个远程服务的调用代理(指定引用的服务)-->
+    <!--url="dubbo://192.168.153.1:20880/com.huangdeyi.dubbo.OrderServiceApi"/>(不使用注册中心时)-->
+    <!--check属性用于是否检查provider是否正常提供服务（默认检查）-->
+    <!--version属性表示使用服务提供方具体的哪个版本-->
+    <!--async属性为true时表示异步调用-->
+    <dubbo:reference id="orderServices" interface="com.huangdeyi.dubbo.OrderServiceApi" version="2.0" async="true" check="true" protocol="dubbo"/>
+</beans>
